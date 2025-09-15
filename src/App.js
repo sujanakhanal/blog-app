@@ -1,9 +1,12 @@
 import "./App.css";
 
 function App() {
+  console.log(process.env.REACT_APP_APPWRITE_URL);
   return (
     <>
-      <h1>My new project </h1>
+      <h1 className="w-full font-bold bg-pink-400 text-center">
+        My new project
+      </h1>
     </>
   );
 }
