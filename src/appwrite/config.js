@@ -107,7 +107,7 @@ export class Service {
   }
 
   async getFilePreview(fileId) {
-    return await this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+    return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
   }
 }
 const service = new Service();
