@@ -43,7 +43,9 @@ export default function Header() {
               <Logo width="70px"></Logo>
             </Link>
           </div>
-          <ul></ul>
+          <ul className="ml-4">
+            <li className="ml-6"></li>
+          </ul>
         </nav>
       </Container>
     </header>
