@@ -43,6 +43,7 @@ export default function Header() {
               <Logo width="70px"></Logo>
             </Link>
           </div>
+          <ul></ul>
         </nav>
       </Container>
     </header>
