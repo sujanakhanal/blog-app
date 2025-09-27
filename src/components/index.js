@@ -9,3 +9,4 @@ export { default as Login } from "./Login";
 export { default as Post } from "../pages/Post";
 export { default as PostForm } from "./post-form/PostForm";
 export { default as PostCard } from "./PostCard";
+export { default as AuthLayout } from "./AuthLayout";
