@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function PostForm() {
-  const { register, handleSubmit, control, watch, setValue, getValues } =
+  const { post, register, handleSubmit, control, watch, setValue, getValues } =
     useForm({
       defaultValues: {
         title: post?.title || " ",
@@ -25,7 +25,7 @@ function PostForm() {
       if (file) {
         appwriteService.deleteFile(post.featuredImage);
       }
-      const dbPost = await appwriteService.updatePost(post.$id, {
+      await appwriteService.updatePost(post.$id, {
         ...data,
         featuredImage: file ? file.$id : undefined,
         if(dbPost) {
@@ -49,7 +49,7 @@ function PostForm() {
     }
   };
   const slugTransform = useCallback((value) => {
-    if (value && typeof value === "string ")
+    if (value && typeof (value === "string "))
       return value
         .trim()
         .toLowerCase()
