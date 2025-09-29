@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+
 import { Provider } from "react-redux";
 import store from "./store/store";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
-import { AuthLayout, Login } from "./components";
+import { AuthLayout, Login } from "./components/index.js";
 
 import AddPost from "./pages/AddPost";
 import Signup from "./pages/Signup";
@@ -46,7 +46,6 @@ const router = createBrowserRouter([
         path: "/all-posts",
         element: (
           <AuthLayout authentication>
-            {" "}
             <AllPosts />
           </AuthLayout>
         ),
@@ -55,7 +54,6 @@ const router = createBrowserRouter([
         path: "/add-post",
         element: (
           <AuthLayout authentication>
-            {" "}
             <AddPost />
           </AuthLayout>
         ),
@@ -64,7 +62,6 @@ const router = createBrowserRouter([
         path: "/edit-post/:slug",
         element: (
           <AuthLayout authentication>
-            {" "}
             <EditPost />
           </AuthLayout>
         ),
@@ -86,5 +83,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
-
-reportWebVitals();

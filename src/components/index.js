@@ -6,7 +6,6 @@ export { default as LogoutBtn } from "./Header/LououtBtn";
 export { default as RTE } from "./RTE";
 export { default as Signup } from "./Signup";
 export { default as Login } from "./Login";
-export { default as Post } from "../pages/Post";
 export { default as PostForm } from "./post-form/PostForm";
 export { default as PostCard } from "./PostCard";
 export { default as AuthLayout } from "./AuthLayout";

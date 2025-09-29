@@ -5,33 +5,34 @@ import appwriteService from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-function PostForm() {
-  const { post, register, handleSubmit, control, watch, setValue, getValues } =
+function PostForm({ post }) {
+  const { register, handleSubmit, control, watch, setValue, getValues } =
     useForm({
       defaultValues: {
-        title: post?.title || " ",
-        content: post?.content || " ",
-        slug: post?.slug || " ",
-        status: post?.slug || "active ",
+        title: post?.title || "",
+        content: post?.content || "",
+        slug: post?.slug || "",
+        status: post?.status || "active",
       },
     });
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.user.userData);
+  const userData = useSelector((state) => state.auth?.userData);
   const submit = async (data) => {
     if (post) {
       const file = data.image[0]
-        ? appwriteService.uploadFile(data.image[0])
+        ? await appwriteService.uploadFile(data.image[0])
         : null;
       if (file) {
         appwriteService.deleteFile(post.featuredImage);
       }
-      await appwriteService.updatePost(post.$id, {
+      const dbPost = await appwriteService.updatePost(post.$id, {
         ...data,
         featuredImage: file ? file.$id : undefined,
-        if(dbPost) {
-          navigate(`/post/${dbPost.$id}`);
-        },
       });
+
+      if (dbPost) {
+        navigate(`/post/${dbPost.$id}`);
+      }
     } else {
       const file = await appwriteService.uploadFile(data.image[0]);
       if (file) {
@@ -48,26 +49,26 @@ function PostForm() {
       }
     }
   };
+
   const slugTransform = useCallback((value) => {
-    if (value && typeof (value === "string "))
+    if (value && typeof value === "string")
       return value
         .trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, "-")
-        .replace(/\s/g, "-");
+        .replace(/[^a-zA-Z0-9\s]/g, "")
+        .replace(/\s+/g, "-");
 
-    return " ";
+    return "";
   }, []);
 
   useEffect(() => {
     const subscription = watch((value, { name }) => {
-      if (name === "title ") {
-        setValue("slug", slugTransform(value.title, { shouldValidate: true }));
+      if (name === "title") {
+        setValue("slug", slugTransform(value.title), { shouldValidate: true });
       }
     });
-    return () => {
-      subscription.unsubscribe();
-    };
+
+    return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
