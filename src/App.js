@@ -1,36 +1,35 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import "./App.css";
 import authService from "./appwrite/auth";
-import { logIn, logOut } from "./store/authSlice";
+import { login, logout } from "./store/authSlice";
+import { Footer, Header } from "./components";
 import { Outlet } from "react-router-dom";
-import { Header, Footer } from "./components";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+
   useEffect(() => {
     authService
-      .getCurrentUSer()
+      .getCurrentUser()
       .then((userData) => {
         if (userData) {
-          dispatch(logIn({ userData }));
+          dispatch(login({ userData }));
         } else {
-          dispatch(logOut());
+          dispatch(logout());
         }
       })
-      .finally(() => {
-        setLoading(false);
-      });
+      .finally(() => setLoading(false));
   }, [dispatch]);
 
   return !loading ? (
-    <div className="min-h-screen flex flex-wrap content-between bg-grey-400">
-      {" "}
-      Testing for Now!!
-      <div className="w-full-block ">
+    <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
+      <div className="w-full block">
         <Header />
-        <Outlet />
+        <main>
+          TODO: <Outlet />
+        </main>
         <Footer />
       </div>
     </div>
